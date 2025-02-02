@@ -11,6 +11,8 @@ public class VarTest {
         System.out.println(mm.isBlank());
         mm.lines();
 
+        list.ensureCapacity(10);
+
         System.out.println(mm.strip());
 
 //        HttpClient httpClient = HttpClient.newBuilder().build();
