@@ -1,0 +1,59 @@
+spring:
+  application:
+    name: test
+
+  datasource:
+    url: jdbc:mariadb://122.51.168.11:3306/new
+    username: new
+    password: m7bZGMRPtjYtwXda
+    driver-class-name: org.mariadb.jdbc.Driver
+    hikari:
+      maximum-pool-size: 10              # 最大连接池大小
+      minimum-idle: 5                    # 最小空闲连接数
+      idle-timeout: 600000               # 空闲连接最大等待时间（毫秒）
+      connection-timeout: 30000          # 连接超时时间（毫秒）
+      max-lifetime: 1800000              # 连接最大生命周期（毫秒）
+      pool-name: HikariCP                # 连接池名称
+      validation-timeout: 3000          # 校验连接是否有效的超时时间（毫秒）
+      leak-detection-threshold: 15000   # 连接泄漏检测时间（毫秒）
+  jpa:
+    hibernate:
+      ddl-auto: update  # 可选的值：none, update, create, create-drop
+    show-sql: true  # 显示 SQL 查询
+    properties:
+      hibernate:
+        format_sql: true  # 格式化 SQL
+        jdbc.time_zone: UTC
+  sql:
+    init:
+      platform: mysql
+
+#  rocketmq:
+#    name-server: 122.51.168.11:9876  # RocketMQ NameServer 地址
+#    producer:
+#      group: your-producer-group
+#    consumer:
+#      group: your-consumer-group
+#      enable-message-model: CLUSTERING  # 消息模型，支持 CLUSTERING 或 BROADCASTING
+
+  data:
+    redis:
+      host: 122.51.168.11
+      port: 6379
+      password: ereq454df4yd4
+      timeout: 2000ms
+      jedis:
+        pool:
+          max-idle: 10         # Jedis 连接池配置，最大空闲连接数
+          min-idle: 2         # Jedis 连接池配置，最小空闲连接数
+          max-active: 15       # Jedis 连接池配置，最大连接数
+          max-wait: 3000      # Jedis 连接池配置，最大等待时间，单位毫秒
+
+
+mybatis-plus:
+  global-config:
+    db-config:
+      id-type: auto  # 自动增长 ID 策略
+      field-strategy: not_empty  # 字段策略：不为空时进行更新
+  configuration:
+    map-underscore-to-camel-case: true  # 将数据库字段下划线命名规则自动映射为 Java 驼峰命名
