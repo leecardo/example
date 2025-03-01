@@ -11,7 +11,7 @@ public class UndertowConfig implements WebServerFactoryCustomizer<ServletWebServ
     @Override
     public void customize(ServletWebServerFactory factory) {
         if (factory instanceof UndertowServletWebServerFactory undertowFactory) {
-            undertowFactory.setPort(8081);
+            undertowFactory.setPort(8082);
             undertowFactory.setContextPath("/test");
         }
     }

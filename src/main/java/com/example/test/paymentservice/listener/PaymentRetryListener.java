@@ -23,8 +23,8 @@ public class PaymentRetryListener {
     @Autowired
     private PaymentService paymentService;
 
-//    @Autowired
-//    private AmqpTemplate rabbitTemplate;
+    @Autowired
+    private AmqpTemplate rabbitTemplate;
 
     @Value("${alipay.retry.queue}")
     private String retryQueueName;
@@ -35,7 +35,7 @@ public class PaymentRetryListener {
     @Value("${alipay.retry.routingKey}")
     private String retryRoutingKey;
 
-    //@RabbitListener(queues = "${alipay.retry.queue}")
+    @RabbitListener(queues = "${alipay.retry.queue}")
     public void handlePaymentRetry(String message, Channel channel, Message msg) throws IOException {
 
         try {
@@ -61,9 +61,9 @@ public class PaymentRetryListener {
                     log.warn("Payment retry failed, requeuing message. Retry count: {}", retryCount);
                     msg.getMessageProperties().setHeader("retryCount", retryCount);
                     //设置延迟时间
-                    //msg.getMessageProperties().setDelay(retryCount * 10000); // 每次递增 10 秒
+                    msg.getMessageProperties().setDelayLong(retryCount * 10000L); // 每次递增 10 秒
                     // 发送到延迟交换机
-                    //rabbitTemplate.convertAndSend(delayExchangeName, retryRoutingKey, msg);
+                    rabbitTemplate.convertAndSend(delayExchangeName, retryRoutingKey, msg);
                     channel.basicAck(msg.getMessageProperties().getDeliveryTag(), false); // 手动确认
 
                 } else {

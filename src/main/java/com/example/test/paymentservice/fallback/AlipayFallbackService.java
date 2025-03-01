@@ -13,8 +13,8 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class AlipayFallbackService implements AlipayClient {
 
-//    @Autowired
-//    private RabbitTemplate rabbitTemplate;
+    @Autowired
+    private RabbitTemplate rabbitTemplate;
 
     @Value("${alipay.retry.exchange}")
     private String retryExchange;
@@ -32,7 +32,7 @@ public class AlipayFallbackService implements AlipayClient {
         // 2.  发送消息到 RabbitMQ 进行异步重试
         try {
             String message = JSON.toJSONString(request); // 假设有 JsonUtil 工具类
-            //rabbitTemplate.convertAndSend(retryExchange, retryRoutingKey, message);
+            rabbitTemplate.convertAndSend(retryExchange, retryRoutingKey, message);
             log.info("Sent payment retry message to RabbitMQ: {}", message);
         } catch (Exception e) {
             log.error("Failed to send payment retry message to RabbitMQ", e);

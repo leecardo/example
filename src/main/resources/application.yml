@@ -27,14 +27,14 @@ spring:
         enabled: true # 启用 Feign 的 Sentinel 集成
 
   # RabbitMQ 配置
-#  rabbitmq:
-#    host: localhost
-#    port: 5672
-#    username: guest
-#    password: guest
-#    virtual-host: /
-#    publisher-confirm-type: correlated  #开启发布确认
-#    publisher-returns: true            #开启发布者退回
+  rabbitmq:
+    host: 122.51.168.11
+    port: 5672
+    username: admin
+    password: your_password
+    virtual-host: /
+    publisher-confirm-type: correlated  #开启发布确认
+    publisher-returns: true            #开启发布者退回
 
   datasource:
     url: jdbc:mariadb://122.51.168.11:3306/new
