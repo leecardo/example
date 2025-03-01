@@ -1,0 +1,10 @@
+[
+  {
+    "resource": "feign:alipay-service:pay(com.example.paymentservice.dto.PaymentRequest)",
+    "grade": 1,
+    "count": 40,
+    "timeWindow": 5,
+    "minRequestAmount": 5,
+    "statIntervalMs": 10000
+  }
+]

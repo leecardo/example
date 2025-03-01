@@ -2,6 +2,40 @@ spring:
   application:
     name: test
 
+  cloud:
+    sentinel:
+      transport:
+        dashboard: localhost:8999 # Sentinel 控制台地址，根据实际情况调整
+        port: 8719
+
+      eager: true # 立即加载规则，默认为false,防止启动后不生效
+    #      datasource:
+#        ds1:
+#          file: # 使用 file 数据源
+#            file: classpath:sentinel-rules.json # 规则文件路径
+#            rule-type: degrade # 指定规则类型为降级规则
+#          nacos: #可以配置到nacos，这里只演示
+#            server-addr: localhost:8848 # Nacos 地址，根据实际情况调整
+#            dataId: ${spring.application.name}-sentinel-rules
+#            groupId: DEFAULT_GROUP
+#            rule-type: flow # 支持 flow, degrade, param-flow, authority, system
+
+
+    # Feign 配置
+    feign:
+      sentinel:
+        enabled: true # 启用 Feign 的 Sentinel 集成
+
+  # RabbitMQ 配置
+#  rabbitmq:
+#    host: localhost
+#    port: 5672
+#    username: guest
+#    password: guest
+#    virtual-host: /
+#    publisher-confirm-type: correlated  #开启发布确认
+#    publisher-returns: true            #开启发布者退回
+
   datasource:
     url: jdbc:mariadb://122.51.168.11:3306/new
     username: new
@@ -57,3 +91,17 @@ mybatis-plus:
       field-strategy: not_empty  # 字段策略：不为空时进行更新
   configuration:
     map-underscore-to-camel-case: true  # 将数据库字段下划线命名规则自动映射为 Java 驼峰命名
+
+# 自定义配置
+alipay:
+  appId: your_alipay_app_id
+  privateKey: your_alipay_private_key
+  publicKey: your_alipay_public_key
+  gatewayUrl: https://openapi.alipay.com/gateway.do # 或沙箱环境
+  retry:
+    queue: payment.retry.queue
+    exchange: payment.retry.exchange
+    routingKey: payment.retry.key
+  delay:
+    exchange: payment.delay.exchange # 延时交换机
+    queue: payment.delay.queue
