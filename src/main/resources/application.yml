@@ -105,3 +105,14 @@ alipay:
   delay:
     exchange: payment.delay.exchange # 延时交换机
     queue: payment.delay.queue
+
+langchain4j:
+  open-ai:
+    chat-model:
+      log-requests: true
+      log-response: true
+      # 课程测试 KEY，需要更换为实际可用 KEY
+      api-key: sk-c07a71819a2947f2b2e5ec5e5e76438f
+      model-name: qwen-turbo
+      # 百炼兼容OpenAI接口规范，base_url为https://dashscope.aliyuncs.com/compatible-mode/v1
+      base-url: https://dashscope.aliyuncs.com/compatible-mode/v1
