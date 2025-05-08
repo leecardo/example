@@ -39,7 +39,7 @@ public class OllamaChatExample {
         // Build the ChatLanguageModel
         ChatLanguageModel model = OllamaChatModel.builder()
                 .baseUrl("http://127.0.0.1:11434/")
-                .modelName("qwen2.5:1.5b")
+                .modelName("deepseek-r1:8b")
                 .temperature(0.5)
 
                 .logRequests(true)
