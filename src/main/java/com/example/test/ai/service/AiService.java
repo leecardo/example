@@ -13,7 +13,7 @@ public class AiService {
 
     public AiService(OpenAiChatModel chatModel) {
         this.assistant = AiServices.builder(AiAssistant.class)
-                .chatLanguageModel(chatModel)
+                .chatModel(chatModel)
                 .build();
     }
 

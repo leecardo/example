@@ -1,6 +1,6 @@
 package com.example.test.ai.ollama;
 
-import dev.langchain4j.model.chat.ChatLanguageModel;
+import dev.langchain4j.model.chat.ChatModel;
 import dev.langchain4j.model.ollama.OllamaChatModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,7 +37,7 @@ public class OllamaChatExample {
 //        ollama.commitToImage(DOCKER_IMAGE_NAME);
 
         // Build the ChatLanguageModel
-        ChatLanguageModel model = OllamaChatModel.builder()
+        ChatModel model = OllamaChatModel.builder()
                 .baseUrl("http://127.0.0.1:11434/")
                 .modelName("deepseek-r1:8b")
                 .temperature(0.5)

@@ -1,8 +1,8 @@
 package com.example.test.ai.ollama;
 
+import dev.langchain4j.model.chat.StreamingChatModel;
 import dev.langchain4j.model.chat.response.ChatResponse;
 import dev.langchain4j.model.chat.response.StreamingChatResponseHandler;
-import dev.langchain4j.model.chat.StreamingChatLanguageModel;
 import dev.langchain4j.model.ollama.OllamaStreamingChatModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,7 +38,7 @@ public class OllamaStreamingChatExample {
 //        }
 //        ollama.commitToImage(DOCKER_IMAGE_NAME);
 
-        StreamingChatLanguageModel model = OllamaStreamingChatModel.builder()
+        StreamingChatModel model = OllamaStreamingChatModel.builder()
                 .baseUrl(BASE_URL)
                 .temperature(0.0)
                 .logRequests(true)
