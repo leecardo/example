@@ -37,9 +37,12 @@ spring:
     publisher-returns: true            #开启发布者退回
 
   datasource:
-    url: jdbc:mariadb://122.51.168.11:3306/new
-    username: new
-    password: m7bZGMRPtjYtwXda
+#    url: jdbc:mariadb://122.51.168.11:3306/new
+#    username: new
+#    password: m7bZGMRPtjYtwXda
+    url: jdbc:mariadb://127.0.0.1:3306/test
+    username: root
+    password: 123456
     driver-class-name: org.mariadb.jdbc.Driver
     hikari:
       maximum-pool-size: 10              # 最大连接池大小
