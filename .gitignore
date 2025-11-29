@@ -1,3 +1,21 @@
 target/
 .class
 /target/
+
+
+# --------------- JetBrains ---------------
+.idea/*
+!.idea/codeStyles/
+!.idea/runConfigurations/
+!.idea/inspectionProfiles/
+*.iml
+.idea/*workspace.xml
+.idea/usage.statistics.xml
+
+# --------------- VS Code -----------------
+.vscode/*
+!.vscode/extensions.json
+!.vscode/launch.json
+!.vscode/tasks.json
+# 如果 settings.json 里出现个人 token 或路径，取消下一行注释
+# .vscode/settings.json
