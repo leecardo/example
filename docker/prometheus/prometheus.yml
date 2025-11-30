@@ -1,0 +1,37 @@
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+
+scrape_configs:
+  # Java Spring Boot Application
+  - job_name: 'java-app'
+    static_configs:
+      - targets: ['java-app:8080']
+    metrics_path: '/actuator/prometheus'
+    scrape_interval: 10s
+
+  # Python AI Service (if metrics enabled)
+  - job_name: 'ai-service'
+    static_configs:
+      - targets: ['ai-service:9090']
+    scrape_interval: 10s
+
+  # Redis Exporter
+  - job_name: 'redis'
+    static_configs:
+      - targets: ['redis:6379']
+
+  # MariaDB/MySQL Exporter
+  - job_name: 'mariadb'
+    static_configs:
+      - targets: ['mariadb:3306']
+
+  # RabbitMQ Exporter
+  - job_name: 'rabbitmq'
+    static_configs:
+      - targets: ['rabbitmq:15692']
+
+  # Prometheus itself
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']

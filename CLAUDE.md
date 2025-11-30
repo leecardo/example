@@ -4,22 +4,57 @@
 
 ## 项目概览
 
-这是一个基于Spring Boot 3.4.2的Java 21应用，展示了各种Java特性、AI集成（使用LangChain4j）、支付处理系统和中间件实现。项目使用Undertow作为Web服务器而不是Tomcat。
+这是一个多语言微服务项目，包含：
+- **Java Spring Boot 3.4.2** 应用：主要业务逻辑、支付系统、AI集成（LangChain4j）
+- **Python FastAPI AI服务**：自然语言处理、文档分析、向量搜索
+- 项目使用微服务架构，支持容器化部署
 
-## 关键技术和依赖
+## 技术架构
 
-- **Spring Boot 3.4.2** 配合 Java 21
-- **LangChain4j 1.0.0-rc1** 用于AI/LLM集成（OpenAI、Ollama）
-- **数据库**: MariaDB 配合 JPA 和 MyBatis Plus
-- **缓存**: Redis 配合 Lettuce 客户端和 Redisson
-- **消息队列**: RocketMQ 和 RabbitMQ
-- **文件处理**: Apache Tika、PDFBox、Apache POI 用于文档解析
-- **HTTP客户端**: OkHttp 和 Retrofit
-- **机器学习库**: ND4J 用于数值计算
-- **测试**: JUnit Jupiter 和 TestContainers
+### Java Spring Boot应用（端口：8080）
+- **Spring Boot 3.4.2** 配合 Java 21（虚拟线程、现代特性）
+- **AI集成**: LangChain4j 1.0.0-rc1（OpenAI、Ollama）
+- **支付系统**: 支付宝集成 + 重试机制
+- **数据库**: MariaDB + JPA + MyBatis Plus
+- **缓存**: Redis + Lettuce + Redisson
+- **消息队列**: RocketMQ + RabbitMQ
+- **文件处理**: Apache Tika、PDFBox、Apache POI
+- **Web服务器**: Undertow（替代Tomcat）
+
+### Python AI服务（端口：8081）
+- **Web框架**: FastAPI + Uvicorn（异步高性能）
+- **AI模型**: sentence-transformers + Hugging Face transformers
+- **文档处理**: PyPDF2、python-docx
+- **向量数据库**: ChromaDB
+- **数据库连接**: Redis + PyMySQL
+- **异步支持**: asyncio、aiohttp
+
+## 项目结构
+
+```
+example/
+├── src/                              # Java Spring Boot应用
+│   └── main/java/com/example/test/    # Java源代码
+│       ├── ai/                       # AI集成（LangChain4j）
+│       ├── paymentservice/           # 支付系统
+│       ├── config/                   # Spring配置
+│       └── ...                       # 其他业务模块
+├── ai-service/                       # Python FastAPI AI服务
+│   ├── app/
+│   │   ├── api/v1/                   # API路由端点
+│   │   ├── models/                   # AI模型管理
+│   │   ├── services/                 # 业务逻辑服务
+│   │   └── utils/                    # 工具和配置
+│   ├── tests/                        # Python测试
+│   └── requirements.txt              # Python依赖
+├── docker-compose.yml                # 生产环境配置
+├── docker-compose.dev.yml            # 开发环境配置
+└── run.sh                           # 统一启动脚本
+```
 
 ## 构建和开发命令
 
+### Java应用
 ```bash
 # 构建项目
 mvn clean compile
@@ -27,79 +62,132 @@ mvn clean compile
 # 运行测试
 mvn test
 
-# 打包应用
-mvn clean package
-
-# 运行应用
+# 本地运行
 mvn spring-boot:run
 
-# 使用特定配置文件运行（如果可用）
-mvn spring-boot:run -Dspring-boot.run.profiles=dev
+# Docker构建
+docker build -t java-app .
 ```
 
-## 架构概览
+### Python AI服务
+```bash
+cd ai-service
 
-### 包结构
+# 安装依赖
+pip install -r requirements.txt
 
-- `com.example.test` - 主应用包
-  - `ai/` - AI/LLM 集成，使用 LangChain4j
-    - `service/` - AI 服务实现
-    - `assitant/` - AI 助手接口和实现
-    - `ollama/` - Ollama 集成示例
-    - `chroma/` - 向量数据库集成（ChromaDB）
-    - `file/` - 文档处理和解析工具
-  - `paymentservice/` - 支付处理系统
-    - `service/` - 支付服务实现
-    - `controller/` - REST 控制器
-    - `feign/` - 外部服务客户端
-    - `config/` - 支付相关配置
-  - `config/` - Spring 配置类
-  - `demo/` - Java 特性演示（虚拟线程、NIO等）
-  - `entity/` - JPA 实体
-  - `mapper/` - MyBatis 映射器
-  - `util/` - 工具类
+# 本地运行
+python main.py
 
-### 核心组件
+# 运行测试
+pytest tests/
 
-1. **AI集成**: 项目广泛使用 LangChain4j 进行各种AI任务，包括：
-   - 文本翻译和生成
-   - 文档处理和 RAG（检索增强生成）
-   - 使用 ChromaDB 的向量嵌入
-   - 多模型支持（OpenAI、Ollama）
+# Docker构建
+docker build -t ai-service .
+```
 
-2. **支付系统**: 实现完整的支付处理流程，包括：
-   - 支付宝集成
-   - 使用 RabbitMQ 的重试机制
-   - 使用 Sentinel 的熔断器模式
-   - 降级实现
+### 容器化部署
+```bash
+# 开发环境
+./run.sh dev
 
-3. **文档处理**: 全面的文档解析能力，支持：
-   - PDF 文件
-   - Word 文档（.doc、.docx）
-   - 各种文本格式
-   - 批量处理工作流
+# 生产环境
+./run.sh prod
 
-4. **现代Java特性**: 演示内容包括：
-   - 用于并发编程的虚拟线程
-   - 模式匹配和记录类型
-   - 增强的 switch 表达式
-   - NIO 和非阻塞 I/O
+# 查看服务状态
+./run.sh status
 
-## 配置说明
+# 查看日志
+./run.sh logs
+```
 
-- 使用 Undertow 而不是 Tomcat 以获得更好的性能
-- Redis 和 Redisson 配置用于分布式锁
-- 数据库连接使用 MariaDB 配合自定义 DataSource 配置
-- 集成了多个消息队列系统（RocketMQ + RabbitMQ）
+## 服务间通信
+
+### Java调用Python AI服务示例
+```java
+@FeignClient(name = "ai-service", url = "${ai.service.url:http://localhost:8081}")
+public interface AIServiceClient {
+    @PostMapping("/api/v1/ai/embedding")
+    EmbeddingResponse createEmbedding(@RequestBody EmbeddingRequest request);
+}
+```
+
+### 共享基础设施
+- **数据库**: MariaDB（127.0.0.1:3306）
+- **缓存**: Redis（122.51.168.11:6379）
+- **向量数据库**: ChromaDB（localhost:8000）
+- **消息队列**: RabbitMQ（122.51.168.11:5672）
+
+## AI能力对比
+
+| 功能 | Java集成 | Python服务 |
+|------|----------|------------|
+| 文本嵌入 | LangChain4j（基础） | sentence-transformers（高级） |
+| 文档处理 | Apache Tika | PyPDF2 + python-docx |
+| 向量搜索 | ChromaDB Java客户端 | ChromaDB + 自定义处理 |
+| NLP任务 | 基础LangChain4j | 完整Hugging Face生态 |
+| 异步处理 | WebFlux（有限） | FastAPI（原生） |
 
 ## 开发工作流
 
-1. 主应用类是 `TestApplication.java`
-2. 配置类位于 `config/` 包中
-3. REST 端点在各自的控制器类中定义
-4. 业务逻辑分离到服务类中
-5. 数据库操作同时使用 JPA 和 MyBatis Plus
+1. **本地开发**：使用`./run.sh dev`启动完整环境
+2. **Java开发**：主要业务逻辑、数据库操作、支付系统
+3. **Python开发**：AI模型处理、文档分析、向量搜索
+4. **API集成**：通过Feign客户端进行服务间调用
+5. **测试**：`mvn test` + `pytest tests/`
 
-## 测试
+## 配置管理
 
-项目包含测试工具，使用 TestContainers 进行集成测试，特别适用于使用 Ollama 容器测试 AI 组件。
+### Java application.yml
+- 数据库连接（本地+远程Redis）
+- AI模型配置（LangChain4j）
+- 支付服务参数
+
+### Python .env
+- 模型路径配置
+- 数据库连接
+- 日志级别设置
+
+## 监控和健康检查
+
+- **Java应用**: `http://localhost:8080/actuator/health`
+- **Python服务**: `http://localhost:8081/health`
+- **RabbitMQ管理**: `http://localhost:15672`
+- **ChromaDB**: `http://localhost:8000`
+
+## 测试策略
+
+### 集成测试
+- TestContainers支持（仅Java）
+- pytest支持（Python）
+- 服务间API测试
+
+### 性能优化
+- Java: 虚拟线程 + 连接池优化
+- Python: 异步处理 + 模型复用
+- 共享缓存策略
+
+## 故障排查
+
+### 常见问题
+1. **端口冲突**: 确保8080/8081端口可用
+2. **模型加载**: Python首次启动需下载模型文件
+3. **数据库连接**: 检查MariaDB和Redis连通性
+4. **CORS配置**: 跨域请求已配置但需验证
+
+### 日志查看
+```bash
+# 查看所有服务日志
+./run.sh logs
+
+# 查看特定服务日志
+./run.sh logs java
+./run.sh logs ai-service
+```
+
+## 扩展建议
+
+1. **API网关**: 考虑引入Spring Cloud Gateway
+2. **服务发现**: 添加Eureka或Consul
+3. **监控**: 集成Prometheus + Grafana
+4. **安全**: 添加JWT认证和权限控制

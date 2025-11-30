@@ -1,7 +1,68 @@
+
 target/
 .class
 /target/
 
+# --------------- Java Build ----------------
+cloud-service/target/
+cloud-service/.class
+cloud-service/target/
+
+# --------------- Python AI Service ---------
+ai-service/__pycache__/
+ai-service/*.py[cod]
+ai-service/*$py.class
+ai-service/*.so
+ai-service/.Python
+ai-service/build/
+ai-service/develop-eggs/
+ai-service/dist/
+ai-service/downloads/
+ai-service/eggs/
+ai-service/.eggs/
+ai-service/lib/
+ai-service/lib64/
+ai-service/parts/
+ai-service/sdist/
+ai-service/var/
+ai-service/wheels/
+ai-service/share/python-wheels/
+ai-service/*.egg-info/
+ai-service/.installed.cfg
+ai-service/*.egg
+ai-service/MANIFEST
+
+# Python Virtual Environments
+ai-service/venv/
+ai-service/.venv
+ai-service/env/
+ai-service/ENV/
+ai-service/env.bak/
+ai-service/venv.bak/
+
+# AI Models and Cache
+ai-service/models_cache/
+ai-service/.huggingface/
+ai-service/.cache/
+ai-service/*_cache/
+
+# Python IDE
+ai-service/.idea/
+ai-service/.vscode/
+
+# Environment Files
+ai-service/.env
+ai-service/.env.local
+ai-service/.env.development.local
+ai-service/.env.test.local
+ai-service/.env.production.local
+
+# Logs and Runtime
+ai-service/logs/
+ai-service/*.log
+ai-service/tmp/
+ai-service/temp_uploads/
+ai-service/temp/
 
 # --------------- JetBrains ---------------
 .idea/*
@@ -19,3 +80,28 @@ target/
 !.vscode/tasks.json
 # 如果 settings.json 里出现个人 token 或路径，取消下一行注释
 # .vscode/settings.json
+
+# --------------- Docker ------------------
+.dockerignore
+*.dockerignore
+
+# --------------- OS and Temporary -------
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+*~
+
+# --------------- Volume and Data --------
+docker_volumes/
+*.db
+*.sqlite
+
+# --------------- Node.js (if any) -------
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
