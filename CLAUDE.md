@@ -1,105 +1,105 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+本文件为Claude Code (claude.ai/code)在处理此代码库时提供指导。
 
-## Project Overview
+## 项目概览
 
-This is a Spring Boot 3.4.2 application running on Java 21 that demonstrates various Java features, AI integration with LangChain4j, payment processing systems, and middleware implementations. The project uses Undertow as the web server instead of Tomcat.
+这是一个基于Spring Boot 3.4.2的Java 21应用，展示了各种Java特性、AI集成（使用LangChain4j）、支付处理系统和中间件实现。项目使用Undertow作为Web服务器而不是Tomcat。
 
-## Key Technologies and Dependencies
+## 关键技术和依赖
 
-- **Spring Boot 3.4.2** with Java 21
-- **LangChain4j 1.0.0-rc1** for AI/LLM integration (OpenAI, Ollama)
-- **Database**: MariaDB with JPA and MyBatis Plus
-- **Caching**: Redis with Lettuce client and Redisson
-- **Message Queue**: RocketMQ and RabbitMQ
-- **File Processing**: Apache Tika, PDFBox, Apache POI for document parsing
-- **HTTP Client**: OkHttp and Retrofit
-- **ML Libraries**: ND4J for numerical computing
-- **Testing**: JUnit Jupiter and TestContainers
+- **Spring Boot 3.4.2** 配合 Java 21
+- **LangChain4j 1.0.0-rc1** 用于AI/LLM集成（OpenAI、Ollama）
+- **数据库**: MariaDB 配合 JPA 和 MyBatis Plus
+- **缓存**: Redis 配合 Lettuce 客户端和 Redisson
+- **消息队列**: RocketMQ 和 RabbitMQ
+- **文件处理**: Apache Tika、PDFBox、Apache POI 用于文档解析
+- **HTTP客户端**: OkHttp 和 Retrofit
+- **机器学习库**: ND4J 用于数值计算
+- **测试**: JUnit Jupiter 和 TestContainers
 
-## Build and Development Commands
+## 构建和开发命令
 
 ```bash
-# Build the project
+# 构建项目
 mvn clean compile
 
-# Run tests
+# 运行测试
 mvn test
 
-# Package the application
+# 打包应用
 mvn clean package
 
-# Run the application
+# 运行应用
 mvn spring-boot:run
 
-# Run with specific profile (if available)
+# 使用特定配置文件运行（如果可用）
 mvn spring-boot:run -Dspring-boot.run.profiles=dev
 ```
 
-## Architecture Overview
+## 架构概览
 
-### Package Structure
+### 包结构
 
-- `com.example.test` - Main application package
-  - `ai/` - AI/LLM integration with LangChain4j
-    - `service/` - AI service implementations
-    - `assitant/` - AI assistant interfaces and implementations
-    - `ollama/` - Ollama integration examples
-    - `chroma/` - Vector database integration (ChromaDB)
-    - `file/` - Document processing and parsing utilities
-  - `paymentservice/` - Payment processing system
-    - `service/` - Payment service implementations
-    - `controller/` - REST controllers
-    - `feign/` - External service clients
-    - `config/` - Payment-related configurations
-  - `config/` - Spring configuration classes
-  - `demo/` - Java feature demonstrations (virtual threads, NIO, etc.)
-  - `entity/` - JPA entities
-  - `mapper/` - MyBatis mappers
-  - `util/` - Utility classes
+- `com.example.test` - 主应用包
+  - `ai/` - AI/LLM 集成，使用 LangChain4j
+    - `service/` - AI 服务实现
+    - `assitant/` - AI 助手接口和实现
+    - `ollama/` - Ollama 集成示例
+    - `chroma/` - 向量数据库集成（ChromaDB）
+    - `file/` - 文档处理和解析工具
+  - `paymentservice/` - 支付处理系统
+    - `service/` - 支付服务实现
+    - `controller/` - REST 控制器
+    - `feign/` - 外部服务客户端
+    - `config/` - 支付相关配置
+  - `config/` - Spring 配置类
+  - `demo/` - Java 特性演示（虚拟线程、NIO等）
+  - `entity/` - JPA 实体
+  - `mapper/` - MyBatis 映射器
+  - `util/` - 工具类
 
-### Key Components
+### 核心组件
 
-1. **AI Integration**: The project extensively uses LangChain4j for various AI tasks including:
-   - Text translation and generation
-   - Document processing and RAG (Retrieval-Augmented Generation)
-   - Vector embeddings with ChromaDB
-   - Multiple model support (OpenAI, Ollama)
+1. **AI集成**: 项目广泛使用 LangChain4j 进行各种AI任务，包括：
+   - 文本翻译和生成
+   - 文档处理和 RAG（检索增强生成）
+   - 使用 ChromaDB 的向量嵌入
+   - 多模型支持（OpenAI、Ollama）
 
-2. **Payment System**: Implements a complete payment processing flow with:
-   - Alipay integration
-   - Retry mechanisms with RabbitMQ
-   - Circuit breaker patterns with Sentinel
-   - Fallback implementations
+2. **支付系统**: 实现完整的支付处理流程，包括：
+   - 支付宝集成
+   - 使用 RabbitMQ 的重试机制
+   - 使用 Sentinel 的熔断器模式
+   - 降级实现
 
-3. **Document Processing**: Comprehensive document parsing capabilities supporting:
-   - PDF files
-   - Word documents (.doc, .docx)
-   - Various text formats
-   - Batch processing workflows
+3. **文档处理**: 全面的文档解析能力，支持：
+   - PDF 文件
+   - Word 文档（.doc、.docx）
+   - 各种文本格式
+   - 批量处理工作流
 
-4. **Modern Java Features**: Demonstrations of:
-   - Virtual threads for concurrent programming
-   - Pattern matching and records
-   - Enhanced switch expressions
-   - NIO and non-blocking I/O
+4. **现代Java特性**: 演示内容包括：
+   - 用于并发编程的虚拟线程
+   - 模式匹配和记录类型
+   - 增强的 switch 表达式
+   - NIO 和非阻塞 I/O
 
-## Configuration Notes
+## 配置说明
 
-- Uses Undertow instead of Tomcat for better performance
-- Redis and Redisson are configured for distributed locking
-- Database connection uses MariaDB with custom DataSource configuration
-- Multiple message queue systems are integrated (RocketMQ + RabbitMQ)
+- 使用 Undertow 而不是 Tomcat 以获得更好的性能
+- Redis 和 Redisson 配置用于分布式锁
+- 数据库连接使用 MariaDB 配合自定义 DataSource 配置
+- 集成了多个消息队列系统（RocketMQ + RabbitMQ）
 
-## Development Workflow
+## 开发工作流
 
-1. The main application class is `TestApplication.java`
-2. Configuration classes are in the `config/` package
-3. REST endpoints are defined in respective controller classes
-4. Business logic is separated into service classes
-5. Database operations use both JPA and MyBatis Plus
+1. 主应用类是 `TestApplication.java`
+2. 配置类位于 `config/` 包中
+3. REST 端点在各自的控制器类中定义
+4. 业务逻辑分离到服务类中
+5. 数据库操作同时使用 JPA 和 MyBatis Plus
 
-## Testing
+## 测试
 
-The project includes test utilities with TestContainers for integration testing, particularly for testing AI components with Ollama containers.
+项目包含测试工具，使用 TestContainers 进行集成测试，特别适用于使用 Ollama 容器测试 AI 组件。
