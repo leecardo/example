@@ -5,21 +5,22 @@
 ## 项目概览
 
 这是一个多语言微服务项目，包含：
-- **Java Spring Boot 3.4.2** 应用：主要业务逻辑、支付系统、AI集成（LangChain4j）
+- **Java Spring Boot 4.0.2** 应用：主要业务逻辑、支付系统、AI集成（LangChain4j）
 - **Python FastAPI AI服务**：自然语言处理、文档分析、向量搜索
 - 项目使用微服务架构，支持容器化部署
 
 ## 技术架构
 
 ### Java Spring Boot应用（端口：8080）
-- **Spring Boot 4.0.2** 配合 Java 25（虚拟线程、现代特性）
-- **AI集成**: LangChain4j 1.0.0-rc1（OpenAI、Ollama）
+- **Spring Boot 4.0.2** 配合 Java 25 LTS（虚拟线程、现代特性）
+- **Spring Cloud 2025.1.0** + **Spring Cloud Alibaba 2025.0.0.0**
+- **AI集成**: LangChain4j 1.10.0（OpenAI、Ollama）
 - **支付系统**: 支付宝集成 + 重试机制
-- **数据库**: MariaDB + JPA + MyBatis Plus
-- **缓存**: Redis + Lettuce + Redisson
-- **消息队列**: RocketMQ + RabbitMQ
-- **文件处理**: Apache Tika、PDFBox、Apache POI
-- **Web服务器**: Undertow（替代Tomcat）
+- **数据库**: MariaDB 3.5.7 + JPA + MyBatis Plus 3.5.16
+- **缓存**: Redis + Lettuce + Redisson 4.1.0
+- **消息队列**: RocketMQ 2.3.5 + RabbitMQ
+- **文件处理**: Apache Tika 3.1.0、PDFBox 3.0.4、Apache POI 5.4.1
+- **Web服务器**: Tomcat（Spring Boot 4.0 默认）
 
 ### Python AI服务（端口：8081）
 - **Web框架**: FastAPI + Uvicorn（异步高性能）
@@ -56,6 +57,9 @@ example/
 
 ### Java应用
 ```bash
+# 激活 Java 25 环境（使用 SDKMAN）
+source ~/.sdkman/bin/sdkman-init.sh
+
 # 构建项目
 mvn clean compile
 
@@ -122,11 +126,11 @@ public interface AIServiceClient {
 
 | 功能 | Java集成 | Python服务 |
 |------|----------|------------|
-| 文本嵌入 | LangChain4j（基础） | sentence-transformers（高级） |
-| 文档处理 | Apache Tika | PyPDF2 + python-docx |
+| 文本嵌入 | LangChain4j 1.10.0（高级） | sentence-transformers（高级） |
+| 文档处理 | Apache Tika 3.1.0 | PyPDF2 + python-docx |
 | 向量搜索 | ChromaDB Java客户端 | ChromaDB + 自定义处理 |
-| NLP任务 | 基础LangChain4j | 完整Hugging Face生态 |
-| 异步处理 | WebFlux（有限） | FastAPI（原生） |
+| NLP任务 | LangChain4j | 完整Hugging Face生态 |
+| 异步处理 | 虚拟线程（Java 25） | FastAPI（原生） |
 
 ## 开发工作流
 
@@ -191,3 +195,16 @@ public interface AIServiceClient {
 2. **服务发现**: 添加Eureka或Consul
 3. **监控**: 集成Prometheus + Grafana
 4. **安全**: 添加JWT认证和权限控制
+
+## 版本历史
+
+### 2026-01-24 升级
+- Java: 21 → **25 LTS** (OpenJDK Temurin)
+- Spring Boot: 3.4.2 → **4.0.2**
+- Spring Cloud: 2024.0.0 → **2025.1.0**
+- Spring Cloud Alibaba: 2023.0.3.2 → **2025.0.0.0**
+- LangChain4j: 1.0.0-rc1 → **1.10.0**
+- MyBatis Plus: 3.5.5 → **3.5.16**
+- Redisson: 3.16.3 → **4.1.0**
+- Web服务器: Undertow → **Tomcat**（Spring Boot 4.0 移除了 Undertow 支持）
+- 命名空间迁移: `javax.annotation` → `jakarta.annotation`
