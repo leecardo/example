@@ -40,9 +40,9 @@ spring:
 #    url: jdbc:mariadb://122.51.168.11:3306/new
 #    username: new
 #    password: m7bZGMRPtjYtwXda
-    url: jdbc:mariadb://127.0.0.1:3306/test
+    url: jdbc:mariadb://100.96.103.118:3306/test
     username: root
-    password: 123456
+    password: Aa@123456
     driver-class-name: org.mariadb.jdbc.Driver
     hikari:
       maximum-pool-size: 10              # 最大连接池大小
@@ -75,9 +75,9 @@ spring:
 
   data:
     redis:
-      host: 122.51.168.11
+      host: 100.96.103.118
       port: 6379
-      password: ereq454df4yd4
+      password: Aa@123456
       timeout: 2000ms
       jedis:
         pool:
