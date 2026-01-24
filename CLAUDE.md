@@ -12,7 +12,7 @@
 ## 技术架构
 
 ### Java Spring Boot应用（端口：8080）
-- **Spring Boot 3.4.2** 配合 Java 21（虚拟线程、现代特性）
+- **Spring Boot 4.0.2** 配合 Java 25（虚拟线程、现代特性）
 - **AI集成**: LangChain4j 1.0.0-rc1（OpenAI、Ollama）
 - **支付系统**: 支付宝集成 + 重试机制
 - **数据库**: MariaDB + JPA + MyBatis Plus
