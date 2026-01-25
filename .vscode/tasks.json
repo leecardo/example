@@ -1,0 +1,88 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "🚀 加载: Qwen-3B（快速编码）",
+      "type": "shell",
+      "command": "/home/leecardo/scripts/switch-model.sh",
+      "args": ["qwen2.5-coder:3b"],
+      "options": {
+        "cwd": "/home/leecardo",
+        "env": {
+          "HOME": "/home/leecardo",
+          "PATH": "/usr/local/bin:/usr/bin:/bin:/home/leecardo/.local/bin"
+        }
+      },
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared"
+      }
+    },
+    {
+      "label": "🔍 加载: GLM-4.7-Flash（深度分析）",
+      "type": "shell",
+      "command": "/home/leecardo/scripts/switch-model.sh",
+      "args": ["glm-4.7-flash"],
+      "options": {
+        "cwd": "/home/leecardo",
+        "env": {
+          "HOME": "/home/leecardo",
+          "PATH": "/usr/local/bin:/usr/bin:/bin"
+        }
+      },
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared"
+      }
+    },
+    {
+      "label": "⚡ 加载: Qwen-8B（平衡模式）",
+      "type": "shell",
+      "command": "/home/leecardo/scripts/switch-model.sh",
+      "args": ["qwen3:8b"],
+      "options": {
+        "cwd": "/home/leecardo"
+      },
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared"
+      }
+    },
+    {
+      "label": "💾 释放显存",
+      "type": "shell",
+      "command": "/home/leecardo/scripts/switch-model.sh",
+      "args": ["stop"],
+      "options": {
+        "cwd": "/home/leecardo"
+      },
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared"
+      }
+    },
+    {
+      "label": "📊 查看显存",
+      "type": "shell",
+      "command": "/home/leecardo/scripts/switch-model.sh",
+      "args": ["status"],
+      "options": {
+        "cwd": "/home/leecardo"
+      },
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared"
+      }
+    }
+  ]
+}
