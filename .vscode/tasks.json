@@ -40,7 +40,7 @@
       }
     },
     {
-      "label": "⚡ 加载: Qwen-8B（平衡模式）",
+      "label": "⚡ 加载: Qwen3-8B（平衡模式）",
       "type": "shell",
       "command": "/home/leecardo/scripts/switch-model.sh",
       "args": ["qwen3:8b"],

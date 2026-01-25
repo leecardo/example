@@ -1,4 +1,3 @@
-# 
 # 写一个快速排序算法
 def quick_sort(arr):
     if len(arr) <= 1:
@@ -13,9 +12,3 @@ def quick_sort(arr):
 arr = [3, 6, 8 , 10, 1, 2 , 1] 
 sorted_arr = quick_sort(arr) 
 print(sorted_arr) 
-# tests/test2.py     
-def test_quick_sort(self): 
-    self.assertEqual(quick_sort([3, 6, 8 , 10,  1, 2 , 1]), [1 , 2, 3, 6, 8, 10])  
-# tests/test3.py  
-
-\\\sdfsd sdfsdf士大夫
