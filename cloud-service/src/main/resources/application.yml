@@ -26,24 +26,21 @@ spring:
       sentinel:
         enabled: true # 启用 Feign 的 Sentinel 集成
 
-  # RabbitMQ 配置
-  rabbitmq:
-    host: 122.51.168.11
-    port: 5672
-    username: admin
-    password: your_password
-    virtual-host: /
-    publisher-confirm-type: correlated  #开启发布确认
-    publisher-returns: true            #开启发布者退回
+#  # RabbitMQ 配置（已弃用，改用 Redis Stream）
+#  rabbitmq:
+#    host: 100.96.103.118
+#    port: 5672
+#    username: admin
+#    password: your_password
+#    virtual-host: /
+#    publisher-confirm-type: correlated
+#    publisher-returns: true
 
   datasource:
-#    url: jdbc:mariadb://122.51.168.11:3306/new
-#    username: new
-#    password: m7bZGMRPtjYtwXda
-    url: jdbc:mariadb://100.96.103.118:3306/test
-    username: root
+    url: jdbc:postgresql://100.96.103.118:5432/my_database
+    username: postgres
     password: Aa@123456
-    driver-class-name: org.mariadb.jdbc.Driver
+    driver-class-name: org.postgresql.Driver
     hikari:
       maximum-pool-size: 10              # 最大连接池大小
       minimum-idle: 5                    # 最小空闲连接数
@@ -63,7 +60,7 @@ spring:
         jdbc.time_zone: UTC
   sql:
     init:
-      platform: mysql
+      platform: postgresql
 
 #  rocketmq:
 #    name-server: 122.51.168.11:9876  # RocketMQ NameServer 地址
@@ -101,13 +98,15 @@ alipay:
   privateKey: your_alipay_private_key
   publicKey: your_alipay_public_key
   gatewayUrl: https://openapi.alipay.com/gateway.do # 或沙箱环境
+
+# 支付重试配置（Redis Stream）
+payment:
+  stream:
+    key: payment:retry:stream
+    group: payment-retry-group
+    consumer: consumer-1
   retry:
-    queue: payment.retry.queue
-    exchange: payment.retry.exchange
-    routingKey: payment.retry.key
-  delay:
-    exchange: payment.delay.exchange # 延时交换机
-    queue: payment.delay.queue
+    max-attempts: 3
 
 langchain4j:
   open-ai:
